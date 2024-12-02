@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join MediChecker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <img src="medichecker-logo.png" alt="MediChecker Logo" class="logo">
+      <h1>Join MediChecker</h1>
+      <p>Choose your role and be a part of our mission to ensure the quality of medicines.</p>
+    </div>
+  </header>
+
+  <main class="login-container">
+    <div class="login-box">
+      <h2>Create an Account</h2>
+      <form action="dashboard.html" method="POST">
+        <!-- Email Field -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <!-- Password Field -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        <!-- User Type Dropdown -->
+        <label for="user-type">Select Your User Type:</label>
+        <select id="user-type" name="user-type" required>
+          <option value="" disabled selected>-- Select an option --</option>
+          <option value="pharmacy">Pharmacy</option>
+          <option value="hospital">Hospital</option>
+          <option value="distributor">Distributor</option>
+          <option value="supplier">Supplier</option>
+        </select>
+
+        <!-- Submit Button -->
+        <button type="submit" class="cta-button">Join MediChecker</button>
+      </form>
+      <p>Already have an account? <a href="index.html">Login</a></p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 MediChecker. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
