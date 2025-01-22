@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f7;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#hospital-info {
+    font-size: 1.1em;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.inventory-overview, .prescriptions, .usage-reports, .alerts, .search {
+    margin-top: 30px;
+}
+
+.inventory-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#prescription-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+#prescription-table th, #prescription-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#alerts-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#alerts-list li {
+    background-color: #ffe5e5;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #e74c3c;
+}
+
+#medicine-search {
+    width: 60%;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+#search-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+   

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medichecker Hospital Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hospital Dashboard - Medichecker</h1>
+            <div id="hospital-info">
+                <p>Logged in as: <span id="hospital-name">St. John's Hospital</span></p>
+            </div>
+        </header>
+
+        <!-- Medicine Inventory Overview -->
+        <section class="inventory-overview">
+            <h2>Medicine Inventory Overview</h2>
+            <div id="inventory-cards">
+                <div class="inventory-card">
+                    <h3>Total Medicines</h3>
+                    <p id="total-medicines">Loading...</p>
+                </div>
+                <div class="inventory-card">
+                    <h3>Out of Stock</h3>
+                    <p id="out-of-stock">Loading...</p>
+                </div>
+                <div class="inventory-card">
+                    <h3>Near Expiry</h3>
+                    <p id="near-expiry">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Prescriptions -->
+        <section class="prescriptions">
+            <h2>Recent Prescriptions</h2>
+            <table id="prescription-table">
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Medicine</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Prescription data will be inserted here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Medicine Usage Reports -->
+        <section class="usage-reports">
+            <h2>Medicine Usage Trends</h2>
+            <canvas id="usage-chart"></canvas>
+        </section>
+
+        <!-- Alerts -->
+        <section class="alerts">
+            <h2>Alerts</h2>
+            <ul id="alerts-list">
+                <!-- Alerts will be shown here dynamically -->
+            </ul>
+        </section>
+
+        <!-- Search and Filtering -->
+        <section class="search">
+            <h2>Search Medicines</h2>
+            <input type="text" id="medicine-search" placeholder="Search for a medicine..." />
+            <button id="search-btn">Search</button>
+            <div id="search-results"></div>
+        </section>
+
+    </div>
+
+    <script>
+        // Simulated hospital data for the dashboard
+        const hospitalData = {
+            name: "St. John's Hospital",
+            inventory: {
+                total_medicines: 1500,
+                out_of_stock: 2,
+                near_expiry: 10
+            },
+            prescriptions: [
+                { patient: "Alice", medicine: "Paracetamol", date: "2025-01-10", status: "Dispensed" },
+                { patient: "Bob", medicine: "Ibuprofen", date: "2025-01-12", status: "Pending" },
+                { patient: "Charlie", medicine: "Amoxicillin", date: "2025-01-15", status: "Dispensed" }
+            ],
+            medicine_usage: [
+                { medicine: "Paracetamol", usage_count: 500 },
+                { medicine: "Ibuprofen", usage_count: 350 },
+                { medicine: "Amoxicillin", usage_count: 150 }
+            ],
+            alerts: [
+                "Critical stock level for Ibuprofen.",
+                "5 medicines near expiration by end of the month."
+            ]
+        };
+
+        // Populate hospital info
+        document.getElementById("hospital-name").textContent = hospitalData.name;
+
+        // Populate Inventory Overview
+        document.getElementById("total-medicines").textContent = hospitalData.inventory.total_medicines;
+        document.getElementById("out-of-stock").textContent = hospitalData.inventory.out_of_stock;
+        document.getElementById("near-expiry").textContent = hospitalData.inventory.near_expiry;
+
+        // Populate Prescription Table
+        const prescriptionTable = document.getElementById("prescription-table").getElementsByTagName("tbody")[0];
+        hospitalData.prescriptions.forEach(item => {
+            let row = prescriptionTable.insertRow();
+            row.insertCell(0).textContent = item.patient;
+            row.insertCell(1).textContent = item.medicine;
+            row.insertCell(2).textContent = item.date;
+            row.insertCell(3).textContent = item.status;
+        });
+
+        // Medicine Usage Trend Chart
+        new Chart(document.getElementById('usage-chart'), {
+            type: 'bar',
+            data: {
+                labels: hospitalData.medicine_usage.map(item => item.medicine),
+                datasets: [{
+                    label: 'Usage Count',
+                    data: hospitalData.medicine_usage.map(item => item.usage_count),
+                    backgroundColor: '#3498db'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Medicines' } },
+                    y: { title: { display: true, text: 'Usage Count' } }
+                }
+            }
+        });
+
+        // Populate Alerts
+        const alertsList = document.getElementById("alerts-list");
+        hospitalData.alerts.forEach(alert => {
+            let li = document.createElement("li");
+            li.textContent = alert;
+            alertsList.appendChild(li);
+        });
+
+        // Medicine Search Functionality
+        document.getElementById("search-btn").addEventListener("click", () => {
+            const searchQuery = document.getElementById("medicine-search").value;
+            alert("Searching for: " + searchQuery);
+            // Simulate fetching search results
+            document.getElementById("search-results").innerHTML = "<p>Search results for: " + searchQuery + "</p>";
+        });
+    </script>
+</body>
+</html>
