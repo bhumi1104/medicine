@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medichecker - Medicine Quality Check Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Medicine Quality Check Form</h1>
+            <p>Please fill out the details below to assess the quality of medicines.</p>
+        </header>
+
+        <form id="quality-check-form">
+            <!-- Medicine Details -->
+            <section>
+                <h2>Medicine Details</h2>
+                <label for="medicine-name">Medicine Name:</label>
+                <input type="text" id="medicine-name" name="medicineName" required />
+
+                <label for="batch-number">Batch Number:</label>
+                <input type="text" id="batch-number" name="batchNumber" required />
+
+                <label for="manufacturing-date">Manufacturing Date:</label>
+                <input type="date" id="manufacturing-date" name="manufacturingDate" required />
+
+                <label for="expiry-date">Expiry Date:</label>
+                <input type="date" id="expiry-date" name="expiryDate" required />
+            </section>
+
+            <!-- Quality Check Parameters -->
+            <section>
+                <h2>Quality Check Parameters</h2>
+                <label for="physical-appearance">Physical Appearance:</label>
+                <select id="physical-appearance" name="physicalAppearance" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Good">Good</option>
+                    <option value="Average">Average</option>
+                    <option value="Poor">Poor</option>
+                </select>
+
+                <label for="chemical-composition">Chemical Composition:</label>
+                <select id="chemical-composition" name="chemicalComposition" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Accurate">Accurate</option>
+                    <option value="Deviated">Deviated</option>
+                    <option value="Not Tested">Not Tested</option>
+                </select>
+
+                <label for="packaging-condition">Packaging Condition:</label>
+                <select id="packaging-condition" name="packagingCondition" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Good">Good</option>
+                    <option value="Damaged">Damaged</option>
+                    <option value="Tampered">Tampered</option>
+                </select>
+            </section>
+
+            <!-- Additional Remarks -->
+            <section>
+                <h2>Additional Remarks</h2>
+                <label for="remarks">Remarks or Observations:</label>
+                <textarea id="remarks" name="remarks" rows="4" placeholder="Enter any additional notes or observations..."></textarea>
+            </section>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit Quality Check</button>
+        </form>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById("quality-check-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Gather form data
+            const formData = new FormData(this);
+            const qualityCheckData = {};
+            formData.forEach((value, key) => {
+                qualityCheckData[key] = value;
+            });
+
+            // Simulate submission (replace with actual API call)
+            console.log("Form submitted:", qualityCheckData);
+            alert("Quality check submitted successfully!");
+        });
+    </script>
+</body>
+</html>
