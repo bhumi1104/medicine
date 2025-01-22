@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medichecker User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Medichecker Dashboard</h1>
+            <div id="user-info">
+                <p>Logged in as: <span id="user-name">bhumika</span></p>
+            </div>
+        </header>
+
+        <!-- Medicine Search Section -->
+        <section class="medicine-search">
+            <h2>Search for Medicines</h2>
+            <input type="text" id="search-input" placeholder="Search for a medicine..." />
+            <button id="search-btn">Search</button>
+        </section>
+
+        <!-- Medicine Recommendations -->
+        <section class="recommendations">
+            <h2>Recommended Medicines</h2>
+            <div id="recommendations-list">
+                <!-- Recommendations will be shown here dynamically -->
+            </div>
+        </section>
+
+        <!-- Medication History -->
+        <section class="history">
+            <h2>Your Medication History</h2>
+            <table id="med-history-table">
+                <thead>
+                    <tr>
+                        <th>Medicine</th>
+                        <th>Date Prescribed</th>
+                        <th>Dosage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Alerts & Notifications -->
+        <section class="alerts">
+            <h2>Alerts & Notifications</h2>
+            <ul id="alerts-list">
+                <!-- Alerts will be displayed here -->
+            </ul>
+        </section>
+
+        <!-- Contact Support -->
+        <section class="contact-support">
+            <h2>Need Help?</h2>
+            <button id="contact-support-btn">Contact Support</button>
+        </section>
+
+    </div>
+
+    <script>
+        // Simulate fetching data from an API
+        const user = {
+            name: "bhumika",
+            medicationHistory: [
+                { medicine: "Paracetamol", date: "2025-01-10", dosage: "500mg" },
+                { medicine: "Ibuprofen", date: "2025-01-15", dosage: "200mg" }
+            ],
+            recommendations: [
+                { medicine: "Amoxicillin", reason: "Common for cold" },
+                { medicine: "Aspirin", reason: "Pain relief" }
+            ],
+            alerts: [
+                { message: "Paracetamol stock running low!" },
+                { message: "Your Ibuprofen prescription is expiring soon!" }
+            ]
+        };
+
+        // Populate the user info
+        document.getElementById("user-name").textContent = user.name;
+
+        // Populate Medication History Table
+        const historyTable = document.getElementById("med-history-table").getElementsByTagName("tbody")[0];
+        user.medicationHistory.forEach(item => {
+            let row = historyTable.insertRow();
+            row.insertCell(0).textContent = item.medicine;
+            row.insertCell(1).textContent = item.date;
+            row.insertCell(2).textContent = item.dosage;
+        });
+
+        // Populate Recommended Medicines Section
+        const recommendationsList = document.getElementById("recommendations-list");
+        user.recommendations.forEach(item => {
+            let div = document.createElement("div");
+            div.classList.add("recommendation");
+            div.innerHTML = `<h4>${item.medicine}</h4><p>Recommended because: ${item.reason}</p>`;
+            recommendationsList.appendChild(div);
+        });
+
+        // Populate Alerts Section
+        const alertsList = document.getElementById("alerts-list");
+        user.alerts.forEach(item => {
+            let li = document.createElement("li");
+            li.textContent = item.message;
+            alertsList.appendChild(li);
+        });
+
+        // Handle Medicine Search
+        document.getElementById("search-btn").addEventListener("click", () => {
+            const searchQuery = document.getElementById("search-input").value;
+            alert("Searching for: " + searchQuery);
+            // Simulate fetching search results from the server
+        });
+
+        // Contact Support
+        document.getElementById("contact-support-btn").addEventListener("click", () => {
+            alert("Redirecting to support...");
+            // You can integrate contact support functionality here
+        });
+    </script>
+</body>
+</html>
