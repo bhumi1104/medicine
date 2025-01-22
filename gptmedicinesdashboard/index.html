@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Medicine Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Hospital Medicine Dashboard</h1>
+        
+        <!-- Inventory Overview -->
+        <div class="overview">
+            <div class="overview-card">
+                <h3>Total Medicines</h3>
+                <p id="total-medicines">Loading...</p>
+            </div>
+            <div class="overview-card">
+                <h3>Out of Stock</h3>
+                <p id="out-of-stock">Loading...</p>
+            </div>
+            <div class="overview-card">
+                <h3>Near Expiry</h3>
+                <p id="near-expiry">Loading...</p>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <canvas id="mostPrescribedChart"></canvas>
+            <canvas id="medicineUsageRateChart"></canvas>
+        </div>
+        
+        <!-- Alerts -->
+        <div class="alerts">
+            <h3>Alerts</h3>
+            <p id="stock-out-alert">Loading...</p>
+            <p id="expired-medicines-alert">Loading...</p>
+        </div>
+    </div>
+
+    <script>
+        // Fetching data from the Flask backend
+        fetch('http://127.0.0.1:5000/medicine_dashboard')
+            .then(response => response.json())
+            .then(data => {
+                // Update Inventory Overview
+                document.getElementById('total-medicines').textContent = data.inventory.total_medicines;
+                document.getElementById('out-of-stock').textContent = data.inventory.out_of_stock;
+                document.getElementById('near-expiry').textContent = data.inventory.near_expiry;
+
+                // Most Prescribed Medicines Bar Chart
+                new Chart(document.getElementById('mostPrescribedChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.usage.most_prescribed.map(item => item.medicine),
+                        datasets: [{
+                            label: 'Prescriptions Count',
+                            data: data.usage.most_prescribed.map(item => item.prescriptions),
+                            backgroundColor: '#28A745',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: { title: { display: true, text: 'Medicines' } },
+                            y: { title: { display: true, text: 'Prescriptions' } },
+                        }
+                    }
+                });
+
+                // Medicine Usage Rate Line Chart
+                new Chart(document.getElementById('medicineUsageRateChart'), {
+                    type: 'line',
+                    data: {
+                        labels: data.usage.medicine_usage_rate.map(item => item.medicine),
+                        datasets: [{
+                            label: 'Usage Rate (per day)',
+                            data: data.usage.medicine_usage_rate.map(item => item.usage_rate),
+                            borderColor: '#FF5733',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: { title: { display: true, text: 'Medicines' } },
+                            y: { title: { display: true, text: 'Usage Rate' } },
+                        }
+                    }
+                });
+
+                // Alerts
+                document.getElementById('stock-out-alert').textContent = data.alerts.stock_out_alert ? 'Stock is low for some medicines!' : 'All stocks are sufficient.';
+                document.getElementById('expired-medicines-alert').textContent = data.alerts.expired_medicines_alert ? 'Some medicines are near expiry!' : 'No medicines near expiry.';
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
