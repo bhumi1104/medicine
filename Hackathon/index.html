@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilingual Q&A Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #e6e6fa;
+            color: #4b4b6f;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #d1d1fe;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hidden {
+            display: none;
+        }
+        input, button, select {
+            width: 90%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #8a8abc;
+            font-size: 14px;
+            background: hwb(240 75% 3%);
+            color: #29299c;
+        }
+        button {
+            background-color: #434373;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+        button:hover {
+            background-color: #8a8abc;
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            align-items: center;
+        }
+        img {
+            width: 100px;
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo-transparent.png" alt="Askify Logo">
+        <h2>Upload PDF</h2>
+        <label for="pdfFile">File Attach:</label>
+        <input type="file" id="pdfFile">
+        <label for="language">Target Language:</label>
+        <select id="language">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="zh">Chinese</option>
+            <option value="hi">Hindi</option>
+            <option value="ta">Tamil</option>
+            <option value="te">Telugu</option>
+            <option value="mr">Marathi</option>
+            <option value="bn">Bengali</option>
+            <option value="gu">Gujarati</option>
+            <option value="kn">Kannada</option>
+            <option value="ml">Malayalam</option>
+            <option value="pa">Punjabi</option>
+            <option value="or">Odia</option>
+            <option value="as">Assamese</option>
+            <option value="ur">Urdu</option>
+            <option value="ne">Nepali</option>
+            <option value="si">Sinhala</option>
+            <option value="sd">Sindhi</option>
+        </select>
+        <div class="button-group">
+            <button onclick="uploadPDF()"><i class="fas fa-upload"></i> Upload</button>
+            <button onclick="generateQuestions()"><i class="fas fa-question-circle"></i> Generate Questions</button>
+            <button onclick="generateQnA()"><i class="fas fa-list-alt"></i> Generate Q&A</button>
+            <button onclick="askQuestion()"><i class="fas fa-comment"></i> Ask a Question</button>
+        </div>
+        <div id="qaResults"></div>
+    </div>
+
+    <script>
+        function uploadPDF() {
+            const fileInput = document.getElementById("pdfFile");
+            const language = document.getElementById("language").value;
+            if (fileInput.files.length === 0) {
+                alert("Please select a PDF file");
+                return;
+            }
+            document.getElementById("qaResults").innerHTML = `Processing file in ${language}...`;
+            setTimeout(() => {
+                document.getElementById("qaResults").innerHTML = "Q&A generated successfully!";
+            }, 2000);
+        }
+
+        function generateQuestions() {
+            document.getElementById("qaResults").innerHTML = "Generating questions...";
+            setTimeout(() => {
+                document.getElementById("qaResults").innerHTML = "Questions generated successfully!";
+            }, 2000);
+        }
+
+        function generateQnA() {
+            document.getElementById("qaResults").innerHTML = "Generating questions with answers...";
+            setTimeout(() => {
+                document.getElementById("qaResults").innerHTML = "Q&A generated successfully!";
+            }, 2000);
+        }
+
+        function askQuestion() {
+            document.getElementById("qaResults").innerHTML = "Awaiting user question...";
+            setTimeout(() => {
+                document.getElementById("qaResults").innerHTML = "Your question has been submitted!";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+
